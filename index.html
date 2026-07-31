@@ -36,6 +36,18 @@
             margin-bottom: 1rem;
         }
 
+        /* Mobile Logo Fix */
+        @media only screen and (max-width: 768px) {
+            header {
+                overflow: hidden; 
+            }
+            .header-logo {
+                max-width: 80%; 
+                display: block;
+                margin: 0 auto 1rem auto;
+            }
+        }
+
         header p.slogan {
             margin: 0;
             font-size: 1.4rem;
@@ -53,14 +65,26 @@
             padding: 0 1rem;
         }
 
-        .intro {
-            text-align: center;
-            font-size: 1.25rem;
+        /* New Manifesto Styling */
+        .manifesto-section {
+            font-size: 1.1rem;
             margin-bottom: 3rem;
             color: #555;
-            max-width: 700px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            text-align: left; 
+        }
+        
+        .manifesto-section h2 {
+            text-align: center;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .manifesto-section p {
+            margin-bottom: 1.2rem;
         }
 
         .product-grid {
@@ -199,8 +223,25 @@
 </header>
 
 <div class="container">
-    <div class="intro">
-        <p>Welcome back! We have upgraded our menu to bring your dog the absolute best in modern nutrition. Say goodbye to freezer tetris and messy defrosting. Discover our new range of premium cold-pressed, air-dried, and top-tier wet foods.</p>
+    
+    <div class="manifesto-section">
+        <h2>Welcome to Simply Natural Treats & Completes</h2>
+
+        <p>Since opening our doors in 2019, the world of dog nutrition has transformed, and so have we. Back then, natural treats were somewhat of a novelty. Today, you can find them everywhere from weekend markets to variety stores, discount stores and value retailers. But as the market grew and saturated, we decided to go smaller and focus harder.</p>
+
+        <p>We are a very small, independent shop, and our range is deliberately curated. We do not stock endless aisles of mediocre products. Instead, whether you are looking for our highly curated selection of premium natural treats or a new daily diet for your dog, every single item on our shelves has been carefully selected. Our treats are a world away from the mass-produced options you see everywhere else. We offer superior quality, superior nutrition, and superior peace of mind, championing top-tier brands that prioritise British ingredients and the absolute highest quality standards.</p>
+
+        <p>Over the years, we have also seen feeding trends shift. While strict raw feeding has its place, we have noticed a strong move towards safer, highly convenient alternatives. Manufacturing techniques have advanced incredibly, and we have eagerly embraced these innovations. Last year, we introduced Wild Pet Food to our shelves. We are confident it is the absolute best bagged dog food available and a true, hassle-free alternative for those looking to move away from raw feeding.</p>
+
+        <p>As we evolve, we are expanding our focus into premium semi-moist and wet dog foods, delivering exceptional nutrition for every life stage, from playful puppies to senior companions. True to our name, we specialise in 'completes'. We do the hard work and research so you do not have to overthink your dog's dinner. We have spent years earning your trust, and we refuse to compromise it by stocking anything less than the best.</p>
+
+        <p>We also want to be completely honest about our journey. Our business was targeted in a malicious cyber-cloning scam. Fraudsters impersonated our brand online to scam people out of money for high-ticket items, like £500 robotic cat litter trays. We want to state this as firmly as possible: Simply Natural Treats & Completes does not have an e-commerce store.</p>
+
+        <p>We do not sell goods online. Instead, we believe wholeheartedly in the personal touch that only comes from visiting a proud, local independent business. Over the years, our shop has become a place where customers become genuine friends, and that face-to-face, tailored service is something a website simply cannot replicate. If you see a website claiming to sell our goods, it is a scam and it is absolutely not us.</p>
+
+        <p>Navigating this online identity theft took a severe personal toll. The stress of protecting our reputation and trying to stop the fraudsters was overwhelming. In complete transparency, there was a period where the passion for this business faded as a result of that experience. It took time to recover from that hurdle.</p>
+
+        <p>But we are back. We have rediscovered our drive and are repositioning ourselves with a bold new vision for the future of canine nutrition. Thank you for standing by us, and welcome to the next chapter of Simply Natural Treats & Completes.</p>
     </div>
 
     <div class="product-grid">
