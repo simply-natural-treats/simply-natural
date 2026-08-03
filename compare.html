@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Food Cost & Portion Calculator | Simply Natural Treats & Completes</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .calc-box {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            margin-bottom: 3rem;
+            border-top: 4px solid var(--orange);
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .calc-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+        .form-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group select {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .results-card {
+            background-color: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #e2e2e2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--green);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .filter-section {
+            background: #fff;
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+        .filter-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+        .filter-checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        table.comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        table.comparison-table th, table.comparison-table td {
+            padding: 1rem;
+            border: 1px solid #eee;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        table.comparison-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: var(--charcoal);
+        }
+        table.comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .highlight-col {
+            background-color: #f2f9f4 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-spacer"></div>
+        <a href="index.html">
+            <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+        </a>
+        <nav class="main-nav">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul class="menu-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="compare.html">Cost Calculator</a></li>
+                <li><a href="visit.html">Visit Us & Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="slogan"><span class="highlight">Raw-Quality</span> Nutrition with Everyday Convenience</p>
+</header>
+
+<div class="container">
+    <div class="manifesto-section">
+        <h2>Interactive Feeding Cost Calculator</h2>
+        <p>Compare premium feeding costs tailored specifically to your dog. Select a diet, enter your dog's target weight, and see exactly what it costs to feed per day and per meal.</p>
+        
+        <!-- --- 1. PERSONALISED CALCULATOR --- -->
+        <div class="calc-box">
+            <h3 style="margin-top:0; margin-bottom: 1.5rem; text-align:center;">Daily Portion & Cost Calculator</h3>
+            <div class="calc-grid">
+                <div class="form-group">
+                    <label for="calc-brand">Select Food Brand:</label>
+                    <select id="calc-brand" onchange="calculatePortion()"></select>
+                </div>
+                <div class="form-group">
+                    <label for="calc-weight">Dog's Weight (kg):</label>
+                    <input type="number" id="calc-weight" value="10" min="1" max="50" step="0.5" oninput="calculatePortion()">
+                </div>
+                <div class="form-group">
+                    <label for="calc-meals">Meals per Day:</label>
+                    <select id="calc-meals" onchange="calculatePortion()">
+                        <option value="1">1 Meal / Day</option>
+                        <option value="2" selected>2 Meals / Day</option>
+                        <option value="3">3 Meals / Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="results-card">
+                <div>
+                    <span class="stat-value" id="res-daily-grams">0g</span>
+                    <span class="stat-label">Daily Serving</span>
+                </div>
+                <div>
+                    <span class="stat-value" id="res-meal-grams">0g</span>
+                    <span class="stat-label">Per Meal Serving</span>
+                </div>
+                <div>
+                    <span class="stat-value" id="res-daily-cost">£0.00</span>
+                    <span class="stat-label">Daily Cost</span>
+                </div>
+                <div>
+                    <span class="stat-value" id="res-meal-cost">£0.00</span>
+                    <span class="stat-label">Cost Per Meal</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- --- 2. SIDE-BY-SIDE COMPARISON TABLE --- -->
+        <h2>Brand Comparison Matrix</h2>
+        <p>Tick the brands you would like to compare side-by-side.</p>
+
+        <div class="filter-section">
+            <strong>Choose Brands to Compare:</strong>
+            <div class="filter-checkboxes" id="brand-filters"></div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="comparison-table" id="comparison-table">
+                <thead>
+                    <tr id="table-head"></tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-columns">
+        <div class="footer-section">
+            <strong>Visit Us Today</strong>
+            <p>Simply Natural Treats & Completes</p>
+            <p>Inside First for Flowers</p>
+            <p>49 West Auckland Road, Darlington DL3 9EL</p>
+            <p>Phone: 01325 952468</p>
+        </div>
+        <div class="footer-section">
+            <strong>Opening Hours</strong>
+            <p>Weekdays: 9:00am - 5:00pm</p>
+            <p>Saturdays: 9:00am - 1:30pm</p>
+            <p>Sundays & Bank Holiday weekends: Closed</p>
+            <p class="holiday-notice">(Closed between Christmas and New Year)</p>
+        </div>
+    </div>
+    <div class="fb-link-container">
+        <a href="https://www.facebook.com/simplynaturaltreats" class="fb-link">
+            <img src="Facebook-logo-blue-large-size-PNG.png" alt="Facebook Logo" class="fb-logo">
+            Follow us on Facebook for updates and offers!
+        </a>
+    </div>
+</footer>
+
+<script>
+// =================================================================
+// MASTER DATA CONFIGURATION
+// Update prices, bag sizes, or feeding rates here centrally!
+// =================================================================
+const brandData = [
+    {
+        id: "wild",
+        name: "Wild Pet Food (Beef)",
+        price: 45.00,
+        packageGrams: 6000,
+        isOurBrand: true,
+        // Weight (kg) : Daily Grams
+        rates: { 2.5: 40, 5: 85, 7.5: 114, 10: 143, 15: 191.5, 20: 240 }
+    },
+    {
+        id: "innocent",
+        name: "The Innocent Hound",
+        price: 32.50,
+        packageGrams: 1500,
+        isOurBrand: false,
+        rates: { 2.5: 47.5, 5: 85, 7.5: 115, 10: 145, 15: 200, 20: 240 }
+    },
+    {
+        id: "jr",
+        name: "JR Complete Wellbeing",
+        price: 4.50,
+        packageGrams: 400,
+        isOurBrand: false,
+        rates: { 2.5: 100, 5: 200, 7.5: 300, 10: 400, 15: 500, 20: 600 }
+    },
+    {
+        id: "lilysDry",
+        name: "Lily's Kitchen (Chicken & Duck Dry)",
+        price: 65.00,
+        packageGrams: 7000,
+        isOurBrand: false,
+        rates: { 2.5: 55, 5: 90, 7.5: 125, 10: 150, 15: 200, 20: 250 }
+    },
+    {
+        id: "lilysWet",
+        name: "Lily's Kitchen (Lamb Hotpot Wet)",
+        price: 3.80,
+        packageGrams: 400,
+        isOurBrand: false,
+        rates: { 2.5: 150, 5: 300, 7.5: 400, 10: 515, 15: 700, 20: 860 }
+    }
+];
+
+const weightBrackets = [2.5, 5, 7.5, 10, 15, 20];
+let activeBrands = brandData.map(b => b.id);
+
+// --- INITIALISATION ---
+function initPage() {
+    populateBrandDropdown();
+    buildFilterCheckboxes();
+    renderTable();
+    calculatePortion();
+}
+
+// --- BUILD FILTER CHECKBOXES ---
+function buildFilterCheckboxes() {
+    const container = document.getElementById("brand-filters");
+    container.innerHTML = "";
+    brandData.forEach(brand => {
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="checkbox" value="${brand.id}" checked onchange="toggleBrand(this)">
+            ${brand.name}
+        `;
+        container.appendChild(label);
+    });
+}
+
+function populateBrandDropdown() {
+    const select = document.getElementById("calc-brand");
+    select.innerHTML = "";
+    brandData.forEach(brand => {
+        const option = document.createElement("option");
+        option.value = brand.id;
+        option.textContent = brand.name;
+        select.appendChild(option);
+    });
+}
+
+function toggleBrand(checkbox) {
+    if (checkbox.checked) {
+        if (!activeBrands.includes(checkbox.value)) activeBrands.push(checkbox.value);
+    } else {
+        activeBrands = activeBrands.filter(id => id !== checkbox.value);
+    }
+    renderTable();
+}
+
+// --- RENDER DYNAMIC TABLE ---
+function renderTable() {
+    const headRow = document.getElementById("table-head");
+    const body = document.getElementById("table-body");
+    
+    headRow.innerHTML = "<th>Dog Weight</th>";
+    body.innerHTML = "";
+
+    const selectedBrands = brandData.filter(b => activeBrands.includes(b.id));
+
+    selectedBrands.forEach(brand => {
+        const th = document.createElement("th");
+        if (brand.isOurBrand) th.classList.add("highlight-col");
+        th.innerHTML = `${brand.name}<br><small style="font-weight:normal; color:#666;">(£${brand.price.toFixed(2)} / ${brand.packageGrams >= 1000 ? (brand.packageGrams/1000)+'kg' : brand.packageGrams+'g'})</small>`;
+        headRow.appendChild(th);
+    });
+
+    weightBrackets.forEach(weight => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<strong>${weight}kg</strong>`;
+
+        selectedBrands.forEach(brand => {
+            const grams = brand.rates[weight] || 0;
+            const costPerGram = brand.price / brand.packageGrams;
+            const dailyCost = grams * costPerGram;
+
+            const td = document.createElement("td");
+            if (brand.isOurBrand) td.classList.add("highlight-col");
+            td.innerHTML = `${grams}g = <strong>£${dailyCost.toFixed(2)}</strong>`;
+            tr.appendChild(td);
+        });
+
+        body.appendChild(tr);
+    });
+}
+
+// --- CALCULATOR LOGIC ---
+function calculatePortion() {
+    const brandId = document.getElementById("calc-brand").value;
+    const weight = parseFloat(document.getElementById("calc-weight").value) || 0;
+    const meals = parseInt(document.getElementById("calc-meals").value) || 1;
+
+    const brand = brandData.find(b => b.id === brandId);
+    if (!brand || weight <= 0) return;
+
+    // Linear interpolation based on known weight brackets
+    const grams = interpolateFeedingGrams(brand.rates, weight);
+    const costPerGram = brand.price / brand.packageGrams;
+    const dailyCost = grams * costPerGram;
+
+    const mealGrams = grams / meals;
+    const mealCost = dailyCost / meals;
+
+    document.getElementById("res-daily-grams").textContent = `${Math.round(grams)}g`;
+    document.getElementById("res-meal-grams").textContent = `${Math.round(mealGrams)}g`;
+    document.getElementById("res-daily-cost").textContent = `£${dailyCost.toFixed(2)}`;
+    document.getElementById("res-meal-cost").textContent = `£${mealCost.toFixed(2)}`;
+}
+
+// Estimate portion sizes smoothly for weights not explicitly in the main table
+function interpolateFeedingGrams(rates, weight) {
+    const keys = Object.keys(rates).map(Number).sort((a,b) => a - b);
+    if (weight <= keys[0]) return rates[keys[0]] * (weight / keys[0]);
+    if (weight >= keys[keys.length - 1]) return rates[keys[keys.length - 1]] * (weight / keys[keys.length - 1]);
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        if (weight >= keys[i] && weight <= keys[i+1]) {
+            const minW = keys[i], maxW = keys[i+1];
+            const minG = rates[minW], maxG = rates[maxW];
+            return minG + ((weight - minW) / (maxW - minW)) * (maxG - minG);
+        }
+    }
+    return 0;
+}
+
+window.onload = initPage;
+</script>
+</body>
+</html>
