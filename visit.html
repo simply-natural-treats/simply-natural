@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Us & Contact | Simply Natural Treats & Completes</title>
+    <!-- Link to our new central CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <!-- Invisible spacer to keep the logo perfectly centered -->
+        <div class="header-spacer"></div>
+        
+        <a href="index.html">
+            <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+        </a>
+
+        <nav class="main-nav">
+            <!-- Hidden checkbox acts as the toggle logic for the menu -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            
+            <label for="menu-toggle" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <ul class="menu-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="visit.html">Visit Us & Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="slogan"><span class="highlight">Raw-Quality</span> Nutrition with Everyday Convenience</p>
+</header>
+
+<div class="container">
+    <div class="manifesto-section">
+        <h2>Visit Us & Contact</h2>
+        <p>We would love to see you and your dog in-store! We are located securely inside First for Flowers in Darlington. Drop by for a face-to-face consultation, or send us a message using the form below.</p>
+        
+        <!-- Flexbox layout to put Map and Form side-by-side on desktop, stacking on mobile -->
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; margin-top: 2rem;">
+            
+            <!-- Left Side: Location Details & Map -->
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="margin-top: 0;">Our Location</h3>
+                <p><strong>Simply Natural Treats & Completes</strong><br>
+                Inside First for Flowers<br>
+                49 West Auckland Road<br>
+                Darlington DL3 9EL</p>
+                <p><strong>Phone:</strong> 01325 952468<br>
+                <strong>Email:</strong> info@simplynaturaltreats.co.uk</p>
+                
+                <!-- Responsive Google Maps Embed -->
+                <div style="margin-top: 1.5rem;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2294.757041530932!2d-1.5750109234857644!3d54.54034879198642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e9b04f145452b%3A0xa9719335f6ea5275!2sFirst%20for%20Flowers!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" width="100%" height="250" style="border:0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div style="flex: 1; min-width: 300px; background-color: var(--card-bg); padding: 2rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06);">
+                <h3 style="margin-top: 0;">Send Us a Message</h3>
+                
+                <!-- Formspree Integration -->
+                <form action="https://formspree.io/f/xbdnnaaa" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label for="name" style="font-weight: bold; color: var(--charcoal);">Name:</label>
+                        <input type="text" id="name" name="name" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label for="email" style="font-weight: bold; color: var(--charcoal);">Email Address:</label>
+                        <input type="email" id="email" name="email" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <label for="message" style="font-weight: bold; color: var(--charcoal);">Message:</label>
+                        <textarea id="message" name="message" rows="5" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1rem; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <button type="submit" style="background-color: var(--orange); color: white; border: none; padding: 1rem; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 0.5rem; transition: background-color 0.2s;">Send Message</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-columns">
+        <div class="footer-section">
+            <strong>Visit Us Today</strong>
+            <p>Simply Natural Treats & Completes</p>
+            <p>Inside First for Flowers</p>
+            <p>49 West Auckland Road, Darlington DL3 9EL</p>
+            <p>Phone: 01325 952468</p>
+        </div>
+        
+        <div class="footer-section">
+            <strong>Opening Hours</strong>
+            <p>Weekdays: 9:00am - 5:00pm</p>
+            <p>Saturdays: 9:00am - 1:30pm</p>
+            <p>Sundays & Bank Holiday weekends: Closed</p>
+            <p class="holiday-notice">(Closed between Christmas and New Year)</p>
+        </div>
+    </div>
+    
+    <div class="fb-link-container">
+        <a href="https://www.facebook.com/simplynaturaltreats" class="fb-link">
+            <img src="Facebook-logo-blue-large-size-PNG.png" alt="Facebook Logo" class="fb-logo">
+            Follow us on Facebook for updates and offers!
+        </a>
+    </div>
+</footer>
+
+</body>
+</html>
