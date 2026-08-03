@@ -111,6 +111,30 @@
             background-color: #f2f9f4 !important;
             font-weight: bold;
         }
+        
+        /* New Disclaimer Box Styling */
+        .disclaimer-box {
+            background-color: #fef6e7; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            margin-bottom: 2rem; 
+            border-left: 4px solid var(--orange); 
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            text-align: left;
+        }
+        .disclaimer-box p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .disclaimer-box ul {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        .disclaimer-box li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -142,9 +166,26 @@
 
 <div class="container">
     <div class="manifesto-section">
-        <h2>Interactive Feeding Cost Calculator</h2>
-        <p>Compare premium feeding costs tailored specifically to your dog. Select a diet, enter your dog's target weight, and see exactly what it costs to feed per day and per meal.</p>
+        <h2 style="margin-bottom: 1rem;">Interactive Feeding Cost Calculator</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Compare premium feeding costs tailored specifically to your dog. Select a diet, enter your dog's target weight, and see exactly what it costs to feed per day and per meal.</p>
         
+        <!-- --- DISCLAIMER & CONTEXT BOX --- -->
+        <div class="disclaimer-box">
+            <p><strong>Why Lily's Kitchen?</strong><br>
+            For feeding amounts and cost comparison purposes, we have chosen Lily's Kitchen dry and wet adult ranges to compare to the foods we offer. We have chosen Lily's Kitchen as it is one of the most popular and well known brands in the UK. <em>Please note, we do not sell Lily's Kitchen, it is here for comparison purposes only.</em></p>
+            
+            <p><strong>About these calculations:</strong><br>
+            All feeding amounts shown are a <strong>calculated approximation</strong> of the manufacturers' daily feeding guidelines, which can often be confusing and difficult to compare side-by-side. Every dog is different and some will need to eat more and some less to maintain a healthy weight.</p>
+            
+            <ul>
+                <li><strong>Activity levels</strong> must be factored in. Less active dogs need less food, more active dogs need more food.</li>
+                <li><strong>Treats</strong> should always be deducted from the daily feeding amounts.</li>
+                <li><strong>Fresh water</strong> should always be available to your dog.</li>
+            </ul>
+            
+            <p style="margin-bottom: 0; font-style: italic; color: #555;">Prices and formulations are valid as at <span id="price-date-display"></span>.</p>
+        </div>
+
         <!-- --- 1. PERSONALISED CALCULATOR --- -->
         <div class="calc-box">
             <h3 style="margin-top:0; margin-bottom: 1.5rem; text-align:center;">Daily Portion & Cost Calculator</h3>
@@ -154,7 +195,7 @@
                     <select id="calc-brand" onchange="calculatePortion()"></select>
                 </div>
                 <div class="form-group">
-                    <label for="calc-weight">Dog's Weight (kg):</label>
+                    <label for="calc-weight">Dog's Target Weight (kg):</label>
                     <input type="number" id="calc-weight" value="10" min="1" max="50" step="0.5" oninput="calculatePortion()">
                 </div>
                 <div class="form-group">
@@ -189,7 +230,7 @@
 
         <!-- --- 2. SIDE-BY-SIDE COMPARISON TABLE --- -->
         <h2>Brand Comparison Matrix</h2>
-        <p>Tick the brands you would like to compare side-by-side.</p>
+        <p style="text-align: center;">Tick the brands you would like to compare side-by-side.</p>
 
         <div class="filter-section">
             <strong>Choose Brands to Compare:</strong>
@@ -237,6 +278,10 @@
 // MASTER DATA CONFIGURATION
 // Update prices, bag sizes, or feeding rates here centrally!
 // =================================================================
+
+// Change this date when you update the prices below
+const pricingDate = "August 2026";
+
 const brandData = [
     {
         id: "wild",
@@ -286,6 +331,9 @@ let activeBrands = brandData.map(b => b.id);
 
 // --- INITIALISATION ---
 function initPage() {
+    // Inject the date variable into the HTML disclaimer
+    document.getElementById("price-date-display").textContent = pricingDate;
+    
     populateBrandDropdown();
     buildFilterCheckboxes();
     renderTable();
