@@ -4,232 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simply Natural Treats & Completes | Premium Dog Food</title>
-    <style>
-        :root {
-            --charcoal: #333333; 
-            --orange: #F37021;   
-            --green: #27ae60;    
-            --bg-light: #fefefe;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--charcoal);
-            background-color: var(--bg-light);
-        }
-
-        header {
-            background-color: #ffffff; 
-            color: var(--charcoal); 
-            text-align: center;
-            padding: 3rem 1rem;
-            border-bottom: 3px solid var(--green); 
-        }
-
-        .header-logo {
-            max-width: 400px; 
-            height: auto;
-            margin-bottom: 1rem;
-        }
-
-        /* Mobile Logo Fix */
-        @media only screen and (max-width: 768px) {
-            header {
-                overflow: hidden; 
-            }
-            .header-logo {
-                max-width: 80%; 
-                display: block;
-                margin: 0 auto 1rem auto;
-            }
-        }
-
-        header p.slogan {
-            margin: 0;
-            font-size: 1.4rem;
-            color: var(--charcoal); 
-        }
-
-        header p.slogan span.highlight {
-            color: var(--green);
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        /* New Manifesto Styling */
-        .manifesto-section {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            color: #555;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left; 
-        }
-        
-        .manifesto-section h2 {
-            text-align: center;
-            color: var(--charcoal);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .manifesto-section p {
-            margin-bottom: 1.2rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 2rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            text-align: center;
-            transition: transform 0.2s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-logo {
-            max-height: 80px; 
-            width: auto;
-            margin-bottom: 1.5rem;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .wild-logo {
-            max-height: 120px; 
-            margin-bottom: 1rem;
-        }
-
-        .card h3 {
-            color: var(--charcoal);
-            margin-top: 0;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1; 
-        }
-
-        .card .highlight-text {
-            font-weight: bold;
-            color: var(--orange);
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            background-color: #f1f1f1;
-            margin-top: 4rem;
-            color: var(--charcoal);
-        }
-
-        footer p {
-            margin: 0.25rem 0;
-        }
-
-        footer strong {
-            color: var(--orange);
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-columns {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 600px) {
-            .footer-columns {
-                flex-direction: row;
-                justify-content: space-around;
-                text-align: left;
-            }
-        }
-
-        .footer-section {
-            flex: 1;
-        }
-
-        .fb-link-container {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        footer a.fb-link {
-            color: #2980b9;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .fb-logo {
-            height: 28px;
-            width: auto;
-        }
-        
-        .holiday-notice {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: #555;
-            margin-top: 0.5rem;
-        }
-    </style>
+    <!-- Link to our new central CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-    <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+    <div class="header-container">
+        <!-- Invisible spacer to keep the logo perfectly centered -->
+        <div class="header-spacer"></div>
+        
+        <a href="index.html">
+            <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+        </a>
+
+        <nav class="main-nav">
+            <!-- Hidden checkbox acts as the toggle logic for the menu -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            
+            <label for="menu-toggle" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <ul class="menu-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="visit.html">Visit Us & Contact</a></li>
+            </ul>
+        </nav>
+    </div>
     <p class="slogan"><span class="highlight">Raw-Quality</span> Nutrition with Everyday Convenience</p>
 </header>
 
 <div class="container">
     
-    <div class="manifesto-section">
+    <div id="about" class="manifesto-section">
         <h2>Welcome to Simply Natural Treats & Completes</h2>
 
         <p>Since opening our doors in 2019, the world of dog nutrition has transformed, and so have we. Back then, natural treats were somewhat of a novelty. Today, you can find them everywhere from weekend markets to variety stores, discount stores and value retailers. But as the market grew and saturated, we decided to go smaller and focus harder.</p>
 
-   <p>We are a very small, independent shop, and our range is deliberately curated. We do not stock endless aisles of mediocre products. Instead, whether you are looking for a hand-picked selection of premium natural treats or a new daily diet for your dog, every single item on our shelves has to earn its place. Our treats are a world away from the mass-produced options you see everywhere else. We offer superior quality, superior nutrition, and superior peace of mind, championing top-tier brands that prioritise British ingredients and the absolute highest quality standards.</p>
+        <p>We are a very small, independent shop, and our range is deliberately curated. We do not stock endless aisles of mediocre products. Instead, whether you are looking for a hand-picked selection of premium natural treats or a new daily diet for your dog, every single item on our shelves has to earn its place. Our treats are a world away from the mass-produced options you see everywhere else. We offer superior quality, superior nutrition, and superior peace of mind, championing top-tier brands that prioritise British ingredients and the absolute highest quality standards.</p>
 
         <p>Over the years, we have also seen feeding trends shift. While strict raw feeding has its place, we have noticed a strong move towards safer, highly convenient alternatives. Manufacturing techniques have advanced incredibly, and we have eagerly embraced these innovations. Last year, we introduced Wild Pet Food to our shelves. We are confident it is the absolute best bagged dog food available and a true, hassle-free alternative for those looking to move away from raw feeding.</p>
 
@@ -244,22 +61,22 @@
         <p>But we are back. We have rediscovered our drive and are repositioning ourselves with a bold new vision for the future of canine nutrition. Thank you for standing by us, and welcome to the next chapter of Simply Natural Treats & Completes.</p>
     </div>
 
-    <div class="product-grid">
-<a href="wild-pet-food.html" class="card" style="text-decoration: none; color: inherit;">
+    <div id="products" class="product-grid">
+        <a href="wild-pet-food.html" class="card" style="text-decoration: none; color: inherit;">
             <div>
                 <img src="WildPetFoodLogo.png" alt="Wild Pet Food Branding and Review" class="card-logo wild-logo">
                 <h3>Superior Cold-Pressed</h3>
             </div>
             <p>Nutrient-dense and highly digestible, Wild is a <span class="highlight-text">far superior alternative to traditional kibble</span>. It retains natural goodness and offers fantastic daily feeding value.</p>
         </a>
-<a href="the-innocent-hound.html" class="card" style="text-decoration: none; color: inherit;">
+        <a href="the-innocent-hound.html" class="card" style="text-decoration: none; color: inherit;">
             <div>
                 <img src="TheInnocentHoundLogo.png" alt="The Innocent Hound Logo" class="card-logo">
                 <h3>Luxury Air-Dried</h3>
             </div>
             <p>The perfect, hygienic alternative for raw feeders who want convenience <span class="highlight-text">without compromising on quality</span>. The gentle air-drying process fully preserves the raw meat integrity.</p>
         </a>
-<a href="jr-complete-wellbeing.html" class="card" style="text-decoration: none; color: inherit;">
+        <a href="jr-complete-wellbeing.html" class="card" style="text-decoration: none; color: inherit;">
             <div>
                 <img src="JRPetProductsLogo.png" alt="JR Pet Products Logo" class="card-logo">
                 <h3>JR Complete Wellbeing</h3>
