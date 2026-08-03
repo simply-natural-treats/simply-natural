@@ -1,0 +1,146 @@
+:root {
+    --charcoal: #333333; 
+    --orange: #F37021;   
+    --green: #27ae60;    
+    --bg-light: #fefefe;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: var(--charcoal);
+    background-color: var(--bg-light);
+}
+
+/* --- NEW HEADER & MENU LAYOUT --- */
+header {
+    background-color: #ffffff; 
+    color: var(--charcoal); 
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 3px solid var(--green); 
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto 1rem auto;
+    position: relative;
+}
+
+/* Spacer balances the flexbox so the logo stays perfectly centered */
+.header-spacer { width: 35px; }
+
+.header-logo {
+    max-width: 400px; 
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Hamburger Menu Button */
+.menu-toggle { display: none; }
+.menu-button {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+    z-index: 100;
+    padding: 5px;
+}
+.menu-button span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--charcoal);
+    transition: 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Slide-out Menu Panel */
+.menu-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hidden off-screen */
+    height: 100vh;
+    width: 250px;
+    background-color: var(--bg-light);
+    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
+    transition: 0.4s ease-in-out;
+    z-index: 99;
+    margin: 0;
+    list-style: none;
+    padding-left: 0;
+    text-align: left;
+}
+
+.menu-links li {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.menu-links a {
+    display: block;
+    padding: 15px 25px;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.menu-links a:hover {
+    color: var(--orange);
+}
+
+/* Menu Animation logic */
+.menu-toggle:checked ~ .menu-links { right: 0; }
+.menu-toggle:checked ~ .menu-button span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-toggle:checked ~ .menu-button span:nth-child(2) { opacity: 0; }
+.menu-toggle:checked ~ .menu-button span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* Mobile Logo Fix */
+@media only screen and (max-width: 768px) {
+    .header-logo { max-width: 200px; }
+}
+
+header p.slogan { margin: 0; font-size: 1.4rem; color: var(--charcoal); }
+header p.slogan span.highlight { color: var(--green); font-weight: bold; }
+
+/* --- EXISTING LAYOUT & COMPONENTS --- */
+.container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
+.manifesto-section { font-size: 1.1rem; margin-bottom: 3rem; color: #555; max-width: 800px; margin-left: auto; margin-right: auto; text-align: left; }
+.manifesto-section h2 { text-align: center; color: var(--charcoal); margin-bottom: 1.5rem; font-size: 1.8rem; }
+.manifesto-section h3 { color: var(--charcoal); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.4rem; }
+.manifesto-section ul { margin-bottom: 1.5rem; line-height: 1.8; }
+.manifesto-section li { margin-bottom: 0.5rem; }
+.manifesto-section p { margin-bottom: 1.2rem; }
+
+.product-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.card { background: var(--card-bg); padding: 2rem 1.5rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s ease-in-out; display: flex; flex-direction: column; justify-content: space-between; }
+.card:hover { transform: translateY(-5px); }
+.card-logo { max-height: 80px; width: auto; margin-bottom: 1.5rem; display: block; margin-left: auto; margin-right: auto; }
+.wild-logo { max-height: 120px; margin-bottom: 1rem; }
+.card h3 { color: var(--charcoal); margin-top: 0; font-size: 1.3rem; margin-bottom: 0.5rem; }
+.card p { font-size: 1rem; color: #666; margin-bottom: 1rem; flex-grow: 1; }
+.card .highlight-text { font-weight: bold; color: var(--orange); }
+
+footer { text-align: center; padding: 3rem 1rem; background-color: #f1f1f1; margin-top: 4rem; color: var(--charcoal); }
+footer p { margin: 0.25rem 0; }
+footer strong { color: var(--orange); font-size: 1.2rem; display: block; margin-bottom: 0.5rem; }
+.footer-columns { display: flex; flex-direction: column; gap: 2rem; max-width: 800px; margin: 0 auto; }
+@media (min-width: 600px) { .footer-columns { flex-direction: row; justify-content: space-around; text-align: left; } }
+.footer-section { flex: 1; }
+.fb-link-container { margin-top: 2rem; text-align: center; }
+footer a.fb-link { color: #2980b9; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.fb-logo { height: 28px; width: auto; }
+.holiday-notice { font-size: 0.9rem; font-style: italic; color: #555; margin-top: 0.5rem; }
