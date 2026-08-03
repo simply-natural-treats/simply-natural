@@ -4,172 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Innocent Hound | Simply Natural Treats & Completes</title>
-    <style>
-        :root {
-            --charcoal: #333333; 
-            --orange: #F37021;   
-            --green: #27ae60;    
-            --bg-light: #fefefe;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--charcoal);
-            background-color: var(--bg-light);
-        }
-
-        header {
-            background-color: #ffffff; 
-            color: var(--charcoal); 
-            text-align: center;
-            padding: 3rem 1rem;
-            border-bottom: 3px solid var(--green); 
-        }
-
-        .header-logo {
-            max-width: 400px; 
-            height: auto;
-            margin-bottom: 1rem;
-        }
-
-        /* Mobile Logo Fix */
-        @media only screen and (max-width: 768px) {
-            header {
-                overflow: hidden; 
-            }
-            .header-logo {
-                max-width: 80%; 
-                display: block;
-                margin: 0 auto 1rem auto;
-            }
-        }
-
-        header p.slogan {
-            margin: 0;
-            font-size: 1.4rem;
-            color: var(--charcoal); 
-        }
-
-        header p.slogan span.highlight {
-            color: var(--green);
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        /* Manifesto Styling */
-        .manifesto-section {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            color: #555;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: left; 
-        }
-        
-        .manifesto-section h2 {
-            text-align: center;
-            color: var(--charcoal);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .manifesto-section h3 {
-            color: var(--charcoal);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .manifesto-section p {
-            margin-bottom: 1.2rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            background-color: #f1f1f1;
-            margin-top: 4rem;
-            color: var(--charcoal);
-        }
-
-        footer p {
-            margin: 0.25rem 0;
-        }
-
-        footer strong {
-            color: var(--orange);
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-columns {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 600px) {
-            .footer-columns {
-                flex-direction: row;
-                justify-content: space-around;
-                text-align: left;
-            }
-        }
-
-        .footer-section {
-            flex: 1;
-        }
-
-        .fb-link-container {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        footer a.fb-link {
-            color: #2980b9;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .fb-logo {
-            height: 28px;
-            width: auto;
-        }
-        
-        .holiday-notice {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: #555;
-            margin-top: 0.5rem;
-        }
-    </style>
+    <!-- Link to our new central CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-    <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+    <div class="header-container">
+        <!-- Invisible spacer to keep the logo perfectly centered -->
+        <div class="header-spacer"></div>
+        
+        <a href="index.html">
+            <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+        </a>
+
+        <nav class="main-nav">
+            <!-- Hidden checkbox acts as the toggle logic for the menu -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            
+            <label for="menu-toggle" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <ul class="menu-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="visit.html">Visit Us & Contact</a></li>
+            </ul>
+        </nav>
+    </div>
     <p class="slogan"><span class="highlight">Raw-Quality</span> Nutrition with Everyday Convenience</p>
 </header>
 
 <div class="container">
     <div class="manifesto-section">
+        <!-- The Innocent Hound Logo added directly above the title -->
+        <img src="TheInnocentHoundLogo.png" alt="The Innocent Hound Logo" class="card-logo">
+        
         <h2>The Innocent Hound: Luxury Air-Dried Nutrition</h2>
         
         <p>When curating our premium selection, The Innocent Hound stood out as a true artisanal masterpiece. Handcrafted in Yorkshire, this range represents the ultimate evolution in convenience for discerning dog owners, perfectly bridging the gap between raw feeding and everyday practicality.</p>
