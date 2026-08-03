@@ -112,7 +112,7 @@
             font-weight: bold;
         }
         
-        /* New Disclaimer Box Styling */
+        /* Disclaimer Box Styling */
         .disclaimer-box {
             background-color: #fef6e7; 
             padding: 1.5rem; 
@@ -167,10 +167,16 @@
 <div class="container">
     <div class="manifesto-section">
         <h2 style="margin-bottom: 1rem;">Interactive Feeding Cost Calculator</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Compare premium feeding costs tailored specifically to your dog. Select a diet, enter your dog's target weight, and see exactly what it costs to feed per day and per meal.</p>
+        <p style="text-align: center; margin-bottom: 2rem;">Compare premium feeding costs tailored specifically to your <strong>adult dog</strong>. Select a diet, enter your dog's target weight, and see exactly what it costs to feed per day and per meal.</p>
         
         <!-- --- DISCLAIMER & CONTEXT BOX --- -->
         <div class="disclaimer-box">
+            <p><strong>Adult Dogs Only:</strong><br>
+            This calculator and comparison matrix are designed for <strong>adult dogs only</strong>. We may add dedicated guides for puppies and seniors in the future.</p>
+
+            <p><strong>The 'All Life Stages' Advantage:</strong><br>
+            The foods we proudly stock (Wild Pet Food, The Innocent Hound, and JR Complete Wellbeing) are approved for <strong>All Life Stages</strong>. This means puppies, adults, and seniors can all safely enjoy them! (The Lily's Kitchen ranges shown below are formulated specifically for adults).</p>
+
             <p><strong>Why Lily's Kitchen?</strong><br>
             For feeding amounts and cost comparison purposes, we have chosen Lily's Kitchen dry and wet adult ranges to compare to the foods we offer. We have chosen Lily's Kitchen as it is one of the most popular and well known brands in the UK. <em>Please note, we do not sell Lily's Kitchen, it is here for comparison purposes only.</em></p>
             
@@ -195,7 +201,7 @@
                     <select id="calc-brand" onchange="calculatePortion()"></select>
                 </div>
                 <div class="form-group">
-                    <label for="calc-weight">Dog's Target Weight (kg):</label>
+                    <label for="calc-weight">Adult Dog's Target Weight (kg):</label>
                     <input type="number" id="calc-weight" value="10" min="1" max="50" step="0.5" oninput="calculatePortion()">
                 </div>
                 <div class="form-group">
