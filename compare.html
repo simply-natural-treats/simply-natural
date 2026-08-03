@@ -202,7 +202,7 @@
                 </div>
                 <div class="form-group">
                     <label for="calc-weight">Adult Dog's Target Weight (kg):</label>
-                    <input type="number" id="calc-weight" value="10" min="1" max="50" step="0.5" oninput="calculatePortion()">
+                    <input type="number" id="calc-weight" value="10" min="1" max="80" step="0.5" oninput="calculatePortion()">
                 </div>
                 <div class="form-group">
                     <label for="calc-meals">Meals per Day:</label>
@@ -295,8 +295,8 @@ const brandData = [
         price: 45.00,
         packageGrams: 6000,
         isOurBrand: true,
-        // Weight (kg) : Daily Grams - Expanded up to 50kg based on label
-        rates: { 1: 25, 2.5: 40, 5: 85, 7.5: 114, 10: 143, 15: 191.5, 20: 240, 30: 326, 40: 404, 45: 442, 50: 485 }
+        // Weight (kg) : Daily Grams
+        rates: { 2.5: 40, 5: 85, 7.5: 114, 10: 143, 15: 191.5, 20: 240, 30: 326, 40: 404, 45: 442 }
     },
     {
         id: "innocent",
@@ -304,7 +304,7 @@ const brandData = [
         price: 32.50,
         packageGrams: 1500,
         isOurBrand: false,
-        rates: { 1: 30, 2.5: 47.5, 5: 85, 7.5: 115, 10: 145, 15: 200, 20: 240, 30: 325, 40: 400, 50: 475 }
+        rates: { 2.5: 47.5, 5: 85, 7.5: 115, 10: 145, 15: 200, 20: 240, 30: 315, 40: 400, 45: 450 }
     },
     {
         id: "jr",
@@ -312,7 +312,7 @@ const brandData = [
         price: 4.50,
         packageGrams: 400,
         isOurBrand: false,
-        rates: { 1: 50, 2.5: 100, 5: 200, 7.5: 300, 10: 400, 15: 500, 20: 600, 30: 800, 40: 1000, 50: 1200 }
+        rates: { 2.5: 100, 5: 200, 7.5: 300, 10: 400, 15: 500, 20: 600 }
     },
     {
         id: "lilysDry",
@@ -320,7 +320,7 @@ const brandData = [
         price: 65.00,
         packageGrams: 7000,
         isOurBrand: false,
-        rates: { 1: 30, 2.5: 55, 5: 90, 7.5: 125, 10: 150, 15: 200, 20: 250, 30: 330, 40: 410, 50: 480 }
+        rates: { 2.5: 55, 5: 90, 7.5: 125, 10: 150, 15: 200, 20: 250 }
     },
     {
         id: "lilysWet",
@@ -328,11 +328,12 @@ const brandData = [
         price: 3.80,
         packageGrams: 400,
         isOurBrand: false,
-        rates: { 1: 90, 2.5: 150, 5: 300, 7.5: 400, 10: 515, 15: 700, 20: 860, 30: 1150, 40: 1400, 50: 1650 }
+        rates: { 2.5: 150, 5: 300, 7.5: 400, 10: 515, 15: 700, 20: 860 }
     }
 ];
 
-const weightBrackets = [2.5, 5, 7.5, 10, 15, 20];
+// Added 30 and 40 to display in the visible table
+const weightBrackets = [2.5, 5, 7.5, 10, 15, 20, 30, 40];
 let activeBrands = brandData.map(b => b.id);
 
 // --- INITIALISATION ---
@@ -403,12 +404,16 @@ function renderTable() {
 
         selectedBrands.forEach(brand => {
             const grams = brand.rates[weight] || 0;
+            
+            // If the exact weight isn't predefined for a brand (e.g., JR at 30kg), the table interpolates it smoothly!
+            const finalGrams = grams ? grams : interpolateFeedingGrams(brand.rates, weight);
+            
             const costPerGram = brand.price / brand.packageGrams;
-            const dailyCost = grams * costPerGram;
+            const dailyCost = finalGrams * costPerGram;
 
             const td = document.createElement("td");
             if (brand.isOurBrand) td.classList.add("highlight-col");
-            td.innerHTML = `${grams}g = <strong>£${dailyCost.toFixed(2)}</strong>`;
+            td.innerHTML = `${Math.round(finalGrams)}g = <strong>£${dailyCost.toFixed(2)}</strong>`;
             tr.appendChild(td);
         });
 
