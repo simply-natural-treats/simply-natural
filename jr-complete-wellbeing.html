@@ -6,6 +6,116 @@
     <title>JR Complete Wellbeing | Simply Natural Treats & Completes</title>
     <!-- Link to our new central CSS file -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .jr-calc-card {
+            background-color: #f8f9fa;
+            border-top: 4px solid var(--jr-blue, #1D4ED8);
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .jr-calc-title {
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            text-align: center;
+            color: var(--charcoal, #222);
+        }
+        .jr-calc-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .jr-calc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .jr-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+        .jr-form-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .jr-form-group select, 
+        .jr-form-group input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .jr-form-group select:focus, 
+        .jr-form-group input:focus {
+            outline: none;
+            border-color: #1D4ED8;
+            box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.2);
+        }
+        .jr-results-box {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        .jr-stat-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #1D4ED8;
+            display: block;
+        }
+        .jr-stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .jr-calc-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            margin-bottom: 0;
+            text-align: center;
+            font-style: italic;
+        }
+        .compare-callout-box {
+            background-color: #f0f4f8;
+            border: 1px solid #d2dce6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .compare-callout-box p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #333;
+        }
+        .compare-btn {
+            display: inline-block;
+            background-color: #1D4ED8;
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+        .compare-btn:hover {
+            background-color: #1e3a8a;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,7 +129,6 @@
         </a>
 
         <nav class="main-nav">
-            <!-- Hidden checkbox acts as the toggle logic for the menu -->
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             
             <label for="menu-toggle" class="menu-button">
@@ -32,6 +141,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="compare.html">Cost Calculator</a></li>
                 <li><a href="visit.html">Visit Us & Contact</a></li>
             </ul>
         </nav>
@@ -64,6 +174,59 @@
         <p>We do not believe in a one-size-fits-all approach to your dog's health. Because we never sell online, we take the time to understand your dog's unique needs in person.</p>
         
         <p>Visit our Darlington store for a proper, face-to-face consultation. We will help you discover exactly how incorporating a premium wet food like JR Complete Wellbeing can transform your dog's daily diet.</p>
+
+        <!-- --- JR DAILY FEEDING CALCULATOR SECTION --- -->
+        <div class="jr-calc-card">
+            <h3 class="jr-calc-title">JR Complete Wellbeing Daily Feeding Calculator</h3>
+            
+            <div class="jr-calc-grid">
+                <div class="jr-form-group">
+                    <label for="jr-stage">Select Life Stage:</label>
+                    <select id="jr-stage" onchange="handleStageChange()">
+                        <option value="puppy_2_6">Puppy (2 to 6 months)</option>
+                        <option value="puppy_6_9">Puppy (6 to 9 months)</option>
+                        <option value="puppy_9_12">Puppy (9 to 12 months)</option>
+                        <option value="adult" selected>Adult</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                </div>
+
+                <div class="jr-form-group">
+                    <label for="jr-weight">Dog's Current Weight (kg):</label>
+                    <input type="number" id="jr-weight" value="10" min="1" max="45" step="0.5" oninput="calculateJRPortion()">
+                </div>
+
+                <div class="jr-form-group">
+                    <label for="jr-meals">Meals per Day:</label>
+                    <select id="jr-meals" onchange="calculateJRPortion()">
+                        <option value="1">1 Meal / Day</option>
+                        <option value="2" selected>2 Meals / Day</option>
+                        <option value="3">3 Meals / Day</option>
+                        <option value="4">4 Meals / Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="jr-results-box">
+                <div>
+                    <span class="jr-stat-value" id="jr-daily-grams">0g</span>
+                    <span class="jr-stat-label">Daily Recommended Feed</span>
+                </div>
+                <div>
+                    <span class="jr-stat-value" id="jr-meal-grams">0g</span>
+                    <span class="jr-stat-label">Serving Per Meal</span>
+                </div>
+            </div>
+
+            <p class="jr-calc-note">Feeding guidelines are approximate. Puppies require varying amounts depending on age and breed. Always ensure fresh drinking water is available.</p>
+        </div>
+
+        <!-- --- LINK TO COST CALCULATOR & MATRIX --- -->
+        <div class="compare-callout-box">
+            <p>Want to see how JR Complete Wellbeing compares on daily cost and feeding amounts against other leading brands?</p>
+            <a href="compare.html" class="compare-btn">Open Interactive Cost Calculator & Brand Comparison Matrix &rarr;</a>
+        </div>
+
     </div>
 </div>
 
@@ -93,6 +256,96 @@
         </a>
     </div>
 </footer>
+
+<script>
+// Base Adult feeding curve for JR Complete Wellbeing (Weight in kg : Daily Grams)
+// Values over 30kg are extrapolated at a standard slope of 20g per kg.
+const jrBaseRates = {
+    1: 40,
+    5: 200,
+    10: 400,
+    20: 600,
+    30: 800,
+    45: 1100
+};
+
+function handleStageChange() {
+    const stage = document.getElementById("jr-stage").value;
+    const mealsSelect = document.getElementById("jr-meals");
+
+    if (stage.startsWith("puppy")) {
+        // Auto-select 4 meals/day for younger puppies if currently set to 1 or 2
+        if (stage === "puppy_2_6" && (mealsSelect.value === "1" || mealsSelect.value === "2")) {
+            mealsSelect.value = "4";
+        }
+    } else {
+        // Auto-revert to 2 meals for adults/seniors if they had 4 selected
+        if (mealsSelect.value === "4") {
+            mealsSelect.value = "2";
+        }
+    }
+    
+    calculateJRPortion();
+}
+
+function calculateJRPortion() {
+    const stage = document.getElementById("jr-stage").value;
+    let weight = parseFloat(document.getElementById("jr-weight").value) || 0;
+    const meals = parseInt(document.getElementById("jr-meals").value) || 1;
+
+    // Strict cap at 45kg max
+    if (weight > 45) {
+        weight = 45;
+        document.getElementById("jr-weight").value = 45;
+    }
+
+    if (weight <= 0) return;
+
+    // Calculate base adult grams
+    const adultGrams = interpolateGrams(jrBaseRates, weight);
+    let dailyGrams = 0;
+
+    // Apply life stage multipliers
+    if (stage === "adult") {
+        dailyGrams = adultGrams;
+    } else if (stage === "senior") {
+        dailyGrams = adultGrams * 0.85; // 15% reduction
+    } else if (stage === "puppy_2_6") {
+        dailyGrams = adultGrams * 2.0;  // 2x adult maintenance
+    } else if (stage === "puppy_6_9") {
+        dailyGrams = adultGrams * 1.5;  // 1.5x adult maintenance
+    } else if (stage === "puppy_9_12") {
+        dailyGrams = adultGrams * 1.2;  // 1.2x adult maintenance
+    }
+
+    const mealGrams = dailyGrams / meals;
+
+    document.getElementById("jr-daily-grams").textContent = `${Math.round(dailyGrams)}g`;
+    document.getElementById("jr-meal-grams").textContent = `${Math.round(mealGrams)}g`;
+}
+
+// Smooth linear interpolation for exact weight points
+function interpolateGrams(rates, weight) {
+    const keys = Object.keys(rates).map(Number).sort((a,b) => a - b);
+    
+    if (weight <= keys[0]) return rates[keys[0]] * (weight / keys[0]);
+    if (weight >= keys[keys.length - 1]) return rates[keys[keys.length - 1]];
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        if (weight >= keys[i] && weight <= keys[i+1]) {
+            const minW = keys[i], maxW = keys[i+1];
+            const minG = rates[minW], maxG = rates[maxW];
+            return minG + ((weight - minW) / (maxW - minW)) * (maxG - minG);
+        }
+    }
+    return 0;
+}
+
+// Initialise calculation on load
+window.onload = function() {
+    handleStageChange();
+};
+</script>
 
 </body>
 </html>
