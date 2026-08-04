@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A and Glossary | Simply Natural Treats & Completes</title>
+    <!-- Link to our central CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .faq-category-title {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            color: var(--charcoal, #222);
+        }
+        
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .accordion-item {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--green, #297151);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .accordion-item summary {
+            padding: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            list-style: none; /* Hides the default browser arrow */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Hides the default marker in Safari/Chrome */
+        .accordion-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Custom Plus/Minus Icon */
+        .accordion-item summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--green, #297151);
+            font-weight: normal;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item[open] summary::after {
+            content: '−';
+        }
+
+        .accordion-content {
+            padding: 0 1.25rem 1.25rem;
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .accordion-content p:first-child {
+            margin-top: 0;
+        }
+
+        .accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .accordion-content ul {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <!-- Invisible spacer to keep the logo perfectly centred -->
+        <div class="header-spacer"></div>
+        
+        <a href="index.html">
+            <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
+        </a>
+
+        <nav class="main-nav">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            
+            <label for="menu-toggle" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <ul class="menu-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="compare.html">Cost Calculator</a></li>
+                <li><a href="faq.html">Q&A & Glossary</a></li>
+                <li><a href="visit.html">Visit Us & Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="slogan"><span class="highlight">Raw-Quality</span> Nutrition with Everyday Convenience</p>
+</header>
+
+<div class="container">
+    <div class="manifesto-section">
+        <h2>Straight Talking Dog Nutrition</h2>
+        <p>We believe in cutting through the marketing fluff to tell you the truth about what goes into your dog's bowl. Browse our most frequently asked questions, myth-busters, and nutritional glossary below.</p>
+
+        <!-- --- Q&A SECTION --- -->
+        <h3 class="faq-category-title">Honest Answers to Your Top Questions</h3>
+        <div class="accordion-container">
+            
+            <details class="accordion-item">
+                <summary>Why don't you offer freeze-dried dog food?</summary>
+                <div class="accordion-content">
+                    <p>Once seen as the ultimate superior choice, we followed this innovation with keen interest. However, the reality is that it is an extremely expensive and wasteful process, requiring significantly more raw meat to produce a small yield. As a result, it has largely been superseded by advancements in cold-pressed technology, which offers fantastic nutrition at a more accessible price point.</p>
+                    <p>In fact, many manufacturers have quietly withdrawn their freeze-dried completes altogether. Be cautious of brands offering their standard kibble with a few freeze-dried treats mixed in, as these are often marketed as misleading hybrid products!</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Why don't you offer raw food?</summary>
+                <div class="accordion-content">
+                    <p>Actually, we do! However, we have observed a national trend showing that raw feeding is in decline. The pool of raw brands is shrinking, with many companies folding or being swallowed up by larger corporations. We believe this decline is largely due to incredible advancements in other manufacturing technologies, such as premium cold-pressed and luxury air-dried diets, which offer raw-quality nutrition with everyday convenience.</p>
+                    <p>We do keep a modest stock of Nutriment’s Just Range in 500g trays for our loyal legacy customers, dogs who have known no different since they were pups. Their owners have become friends over the years, and this is exactly the kind of personal service we pride ourselves on.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Why don't you offer 'fresh' refrigerated food?</summary>
+                <div class="accordion-content">
+                    <p>Quite simply, because it is a marketing fad. It offers no nutritional advantage over the premium food categories already available. It occupies a very grey area in the market, packaged and presented to appeal to owners who like the idea of raw feeding but do not actually want to feed raw. It is aimed squarely at the "toe-in-the-water" consumer browsing the supermarket aisles.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>I can buy dog food and treats much cheaper elsewhere, why is yours more expensive?</summary>
+                <div class="accordion-content">
+                    <p>Because everything on our shelves has been benchmarked against our incredibly high standards. We have been offering natural, grain-free, gluten-free, and hypoallergenic nutrition since 2019. We know that not all dogs can tolerate a grain-based diet, as they are simply not genetically engineered to process heavy carbohydrates. While some dogs are resilient and cope well on mass-produced diets, we are here for the ones who cannot.</p>
+                    <p>It is also worth noting that confectionery giants like Mars and Nestlé dominate the vast majority of the pet food market. They own multiple brands, from budget supermarket bags to gourmet tins and even 'prescription' diets. True, independent, hypoallergenic ingredients cost more to source, but they pay dividends in your dog's long-term health and vitality.</p>
+                </div>
+            </details>
+
+        </div>
+
+        <!-- --- MYTH-BUSTERS SECTION --- -->
+        <h3 class="faq-category-title">Myth-Busters: Seeing Through the Spin</h3>
+        <div class="accordion-container">
+
+            <details class="accordion-item">
+                <summary>"Designed for Dogs"</summary>
+                <div class="accordion-content">
+                    <p>Take a close look at the packaging. Most commercial pet food marketing is aimed entirely at the human buyer's appetite and emotions, not the dog's actual nutritional needs.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"Vet Approved"</summary>
+                <div class="accordion-content">
+                    <p>This label sounds impressive until you realise the vet in question is usually employed directly by the company manufacturing the food.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"Natural Ingredients"</summary>
+                <div class="accordion-content">
+                    <p>There is natural, and then there is <em>natural</em>. Many heavily processed chemicals technically derive from natural sources, but it absolutely does not mean they have a place in your dog’s diet.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"No Nasties"</summary>
+                <div class="accordion-content">
+                    <p>This term actually means nothing. No food ingredients are legally classified as 'nasties'. It is simply a clever marketing trick to make a highly processed food sound wholesome.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"Cleans Your Dog's Teeth"</summary>
+                <div class="accordion-content">
+                    <p>Standard kibble will not clean your dog's teeth. However, there are proper natural treats available that offer genuine abrasion, such as hooves or pizzles. We promise they help clean teeth, but we certainly cannot promise fresh breath!</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"High protein makes dogs hyper"</summary>
+                <div class="accordion-content">
+                    <p>We hear this constantly, and it simply is not true. If your dog is hyperactive, more exercise and mental enrichment is the answer. Starving your dog of the essential amino acids vital for growth, repair, and vitality will not calm them down.</p>
+                </div>
+            </details>
+
+        </div>
+
+        <!-- --- GLOSSARY SECTION --- -->
+        <h3 class="faq-category-title">The Simply Natural Glossary & Health Truths</h3>
+        <div class="accordion-container">
+
+            <details class="accordion-item">
+                <summary>Ingredients of Animal Origin</summary>
+                <div class="accordion-content">
+                    <p>This legal term covers any and all parts of the animal. Nothing is wasted. If the label does not explicitly name the meat, it is not proper meat.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Open vs. Closed Menus</summary>
+                <div class="accordion-content">
+                    <p>An <strong>'Open Menu'</strong> tells you exactly what is in the food (e.g., "50% Freshly Prepared British Lamb").</p>
+                    <p>A <strong>'Closed Menu'</strong> uses vague umbrella terms like "Meat and animal derivatives". This allows manufacturers to constantly swap out the protein source from batch to batch based on whatever meat is cheapest that week.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Grain-Free vs. Gluten-Free</summary>
+                <div class="accordion-content">
+                    <p>Not all grains contain gluten. For dogs with a gluten sensitivity or celiac disease, it is vital to differentiate between the two.</p>
+                    <p><em>Note:</em> If a label says "Free of gluten-containing ingredients", it means the recipe itself has no gluten, but it is manufactured on the same conveyor belts as foods that do. Therefore, cross-contamination cannot be avoided, and they cannot legally call it "Gluten-Free".</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Dried Meat vs. Freshly Prepared</summary>
+                <div class="accordion-content">
+                    <p><strong>'Freshly Prepared'</strong> refers to fresh meat that leaves the exact same abattoir as human-grade meat, just on a different lorry heading to the pet food facility.</p>
+                    <p><strong>'Dried Meat'</strong> (often listed as meat meal) is a highly concentrated protein powder. While it can be a good source of protein, it is heavily processed and often of a much lower grade if the animal source is unnamed.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Hidden Allergens in Fish Oils</summary>
+                <div class="accordion-content">
+                    <p>Many foods boast about added "Omega 3 Fish Oils". However, these are often derived from salmon or trout, which is completely unhelpful if your dog has a specific sensitivity to those fish.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>The "Chicken and Rice" Advice</summary>
+                <div class="accordion-content">
+                    <p>When a dog has an upset stomach, owners are often told to feed boiled chicken and white rice. Chicken is actually one of the most common canine intolerances we see, so if your dog is sensitive to it, this will not end well! Furthermore, while rice is gluten-free, it is still a grain. Canned pure pumpkin is a much more effective, holistic offering to settle a stomach.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>"My dog just won't eat dog food!"</summary>
+                <div class="accordion-content">
+                    <p>We hear this a lot! Simply put, if you treat your dog to a home-prepared meal of fresh chicken or fish every evening, they will hold out for it. Dogs are incredibly clever. They know that if they turn their nose up at their bowl long enough, you will eventually give in and cook them something special.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Epilepsy Triggers</summary>
+                <div class="accordion-content">
+                    <p>We have learned a thing or two about canine epilepsy over the years. If your dog suffers from seizures, avoid feeding them rabbit, and keep well away from foods containing added glutamate (an excitatory neurotransmitter). Environmentally, you should also avoid burning synthetic scented candles or using essential oils in your home, as these can lower the seizure threshold.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Pancreatitis</summary>
+                <div class="accordion-content">
+                    <p>Dogs managing pancreatitis require a highly digestible, strictly low-fat diet to prevent the pancreas from overworking. Premium semi-moist foods or specific hydrolysed proteins are often the most suitable and comfortable options.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Low Purine Diets</summary>
+                <div class="accordion-content">
+                    <p>Purines are natural compounds found in food that break down into uric acid. Dogs with kidney issues, or specific breeds like Dalmatians prone to urate stones, require a low-purine diet. This means strictly avoiding offal (like liver and kidneys), certain seafood, and high-purine meats like venison.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>'Prescription' Diets</summary>
+                <div class="accordion-content">
+                    <p>Take a look at the ingredients list on a bag of expensive veterinary prescription food. More often than not, it is predominantly made up of heavy grains and very little actual meat.</p>
+                </div>
+            </details>
+
+            <details class="accordion-item">
+                <summary>Are Grain-Based Foods Bad?</summary>
+                <div class="accordion-content">
+                    <p>Not necessarily. Dogs have evolved alongside humans, and many can tolerate grains perfectly well. However, a dog's ancestral diet would have consisted of very little grain and would have been made up entirely of quality protein and foraged botanicals. We prefer to feed them what they are built to thrive on.</p>
+                </div>
+            </details>
+
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <div class="footer-columns">
+        <div class="footer-section">
+            <strong>Visit Us Today</strong>
+            <p>Simply Natural Treats & Completes</p>
+            <p>Inside First for Flowers</p>
+            <p>49 West Auckland Road, Darlington DL3 9EL</p>
+            <p>Phone: 01325 952468</p>
+        </div>
+        
+        <div class="footer-section">
+            <strong>Opening Hours</strong>
+            <p>Weekdays: 9:00am - 5:00pm</p>
+            <p>Saturdays: 9:00am - 1:30pm</p>
+            <p>Sundays & Bank Holiday weekends: Closed</p>
+            <p class="holiday-notice">(Closed between Christmas and New Year)</p>
+        </div>
+    </div>
+    
+    <div class="fb-link-container">
+        <a href="https://www.facebook.com/simplynaturaltreats" class="fb-link">
+            <img src="Facebook-logo-blue-large-size-PNG.png" alt="Facebook Logo" class="fb-logo">
+            Follow us on Facebook for updates and offers!
+        </a>
+    </div>
+</footer>
+
+</body>
+</html>
