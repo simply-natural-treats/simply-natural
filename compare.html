@@ -97,6 +97,7 @@
             padding: 1rem;
             border: 1px solid #eee;
             text-align: center;
+            vertical-align: middle;
             font-size: 0.95rem;
         }
         table.comparison-table th {
@@ -202,7 +203,7 @@
                 </div>
                 <div class="form-group">
                     <label for="calc-weight">Adult Dog's Target Weight (kg):</label>
-                    <input type="number" id="calc-weight" value="10" min="1" max="80" step="0.5" oninput="calculatePortion()">
+                    <input type="number" id="calc-weight" value="10" min="1" max="45" step="0.5" oninput="calculatePortion()">
                 </div>
                 <div class="form-group">
                     <label for="calc-meals">Meals per Day:</label>
@@ -312,7 +313,7 @@ const brandData = [
         price: 4.50,
         packageGrams: 400,
         isOurBrand: false,
-        rates: { 2.5: 100, 5: 200, 7.5: 300, 10: 400, 15: 500, 20: 600 }
+        rates: { 5: 200, 10: 400, 20: 600, 30: 800 }
     },
     {
         id: "lilysDry",
@@ -332,13 +333,12 @@ const brandData = [
     }
 ];
 
-// Added 30 and 40 to display in the visible table
-const weightBrackets = [2.5, 5, 7.5, 10, 15, 20, 30, 40];
+// Display brackets for the visible table (now includes 25, 35, and 45)
+const weightBrackets = [2.5, 5, 7.5, 10, 15, 20, 25, 30, 35, 40, 45];
 let activeBrands = brandData.map(b => b.id);
 
 // --- INITIALISATION ---
 function initPage() {
-    // Inject the date variable into the HTML disclaimer
     document.getElementById("price-date-display").textContent = pricingDate;
     
     populateBrandDropdown();
@@ -400,12 +400,16 @@ function renderTable() {
 
     weightBrackets.forEach(weight => {
         const tr = document.createElement("tr");
-        tr.innerHTML = `<strong>${weight}kg</strong>`;
+        
+        // This wraps the text in a proper table data cell, forcing the alignment to match!
+        const tdWeight = document.createElement("td");
+        tdWeight.innerHTML = `<strong>${weight}kg</strong>`;
+        tr.appendChild(tdWeight);
 
         selectedBrands.forEach(brand => {
             const grams = brand.rates[weight] || 0;
             
-            // If the exact weight isn't predefined for a brand (e.g., JR at 30kg), the table interpolates it smoothly!
+            // If the exact weight isn't predefined for a brand, the table interpolates it smoothly!
             const finalGrams = grams ? grams : interpolateFeedingGrams(brand.rates, weight);
             
             const costPerGram = brand.price / brand.packageGrams;
@@ -424,7 +428,14 @@ function renderTable() {
 // --- CALCULATOR LOGIC ---
 function calculatePortion() {
     const brandId = document.getElementById("calc-brand").value;
-    const weight = parseFloat(document.getElementById("calc-weight").value) || 0;
+    let weight = parseFloat(document.getElementById("calc-weight").value) || 0;
+    
+    // Hard cap the input visually and mathematically to 45kg
+    if (weight > 45) {
+        weight = 45;
+        document.getElementById("calc-weight").value = 45;
+    }
+    
     const meals = parseInt(document.getElementById("calc-meals").value) || 1;
 
     const brand = brandData.find(b => b.id === brandId);
@@ -447,9 +458,14 @@ function calculatePortion() {
 // Estimate portion sizes smoothly for weights not explicitly in the main table
 function interpolateFeedingGrams(rates, weight) {
     const keys = Object.keys(rates).map(Number).sort((a,b) => a - b);
+    
+    // Scale downwards if below lowest recorded weight
     if (weight <= keys[0]) return rates[keys[0]] * (weight / keys[0]);
+    
+    // Scale upwards if above highest recorded weight
     if (weight >= keys[keys.length - 1]) return rates[keys[keys.length - 1]] * (weight / keys[keys.length - 1]);
 
+    // Interpolate between two known weights
     for (let i = 0; i < keys.length - 1; i++) {
         if (weight >= keys[i] && weight <= keys[i+1]) {
             const minW = keys[i], maxW = keys[i+1];
