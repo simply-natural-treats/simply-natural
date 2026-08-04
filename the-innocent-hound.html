@@ -6,12 +6,121 @@
     <title>The Innocent Hound | Simply Natural Treats & Completes</title>
     <!-- Link to our new central CSS file -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .innocent-calc-card {
+            background-color: #f8f9fa;
+            border-top: 4px solid var(--green, #297151);
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .innocent-calc-title {
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            text-align: center;
+            color: var(--charcoal, #222);
+        }
+        .innocent-calc-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .innocent-calc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .innocent-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+        .innocent-form-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .innocent-form-group select, 
+        .innocent-form-group input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .innocent-form-group select:focus, 
+        .innocent-form-group input:focus {
+            outline: none;
+            border-color: #297151;
+            box-shadow: 0 0 0 2px rgba(41, 113, 81, 0.2);
+        }
+        .innocent-results-box {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        .innocent-stat-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #297151;
+            display: block;
+        }
+        .innocent-stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .innocent-calc-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            margin-bottom: 0;
+            text-align: center;
+            font-style: italic;
+        }
+        .compare-callout-box {
+            background-color: #f2f9f4;
+            border: 1px solid #cce5d6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .compare-callout-box p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #333;
+        }
+        .compare-btn {
+            display: inline-block;
+            background-color: #297151;
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+        .compare-btn:hover {
+            background-color: #1e543c;
+        }
+    </style>
 </head>
 <body>
 
 <header>
     <div class="header-container">
-        <!-- Invisible spacer to keep the logo perfectly centered -->
         <div class="header-spacer"></div>
         
         <a href="index.html">
@@ -19,7 +128,6 @@
         </a>
 
         <nav class="main-nav">
-            <!-- Hidden checkbox acts as the toggle logic for the menu -->
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             
             <label for="menu-toggle" class="menu-button">
@@ -32,6 +140,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="compare.html">Cost Calculator</a></li>
                 <li><a href="visit.html">Visit Us & Contact</a></li>
             </ul>
         </nav>
@@ -41,7 +150,6 @@
 
 <div class="container">
     <div class="manifesto-section">
-        <!-- The Innocent Hound Logo added directly above the title -->
         <img src="TheInnocentHoundLogo.png" alt="The Innocent Hound Logo" class="card-logo">
         
         <h2>The Innocent Hound: Luxury Air-Dried Nutrition</h2>
@@ -62,6 +170,60 @@
         <h3>The Simply Natural Standard</h3>
         <p>Selecting the right air-dried diet requires an understanding of your dog's specific needs. Because we are strictly an in-store business, we can guide you through the benefits of The Innocent Hound face-to-face.</p>
         <p>Visit us in Darlington to explore the range and see exactly why this Yorkshire-made diet has earned its place on our shelves.</p>
+
+        <!-- --- THE INNOCENT HOUND DAILY FEEDING CALCULATOR SECTION --- -->
+        <div class="innocent-calc-card">
+            <h3 class="innocent-calc-title">The Innocent Hound Daily Feeding Calculator</h3>
+            
+            <div class="innocent-calc-grid">
+                <div class="innocent-form-group">
+                    <label for="innocent-stage">Select Life Stage:</label>
+                    <select id="innocent-stage" onchange="handleStageChange()">
+                        <option value="puppy_2_4">Puppy (2 to 4 months)</option>
+                        <option value="puppy_4_6">Puppy (4 to 6 months)</option>
+                        <option value="puppy_6_8">Puppy (6 to 8 months)</option>
+                        <option value="puppy_8_12">Puppy (8 to 12 months)</option>
+                        <option value="adult" selected>Adult</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                </div>
+
+                <div class="innocent-form-group">
+                    <label for="innocent-weight" id="innocent-weight-label">Dog's Weight (kg):</label>
+                    <input type="number" id="innocent-weight" value="10" min="1" max="45" step="0.5" oninput="calculateInnocentPortion()">
+                </div>
+
+                <div class="innocent-form-group">
+                    <label for="innocent-meals">Meals per Day:</label>
+                    <select id="innocent-meals" onchange="calculateInnocentPortion()">
+                        <option value="1">1 Meal / Day</option>
+                        <option value="2" selected>2 Meals / Day</option>
+                        <option value="3">3 Meals / Day</option>
+                        <option value="4">4 Meals / Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="innocent-results-box">
+                <div>
+                    <span class="innocent-stat-value" id="innocent-daily-grams">0g</span>
+                    <span class="innocent-stat-label">Daily Recommended Feed</span>
+                </div>
+                <div>
+                    <span class="innocent-stat-value" id="innocent-meal-grams">0g</span>
+                    <span class="innocent-stat-label">Serving Per Meal</span>
+                </div>
+            </div>
+
+            <p class="innocent-calc-note">Feeding guidelines are approximate. Factors such as breed, activity level, and temperament should be considered. Always ensure fresh drinking water is available.</p>
+        </div>
+
+        <!-- --- LINK TO COST CALCULATOR & MATRIX --- -->
+        <div class="compare-callout-box">
+            <p>Want to see how The Innocent Hound compares on daily cost and feeding amounts against other leading brands?</p>
+            <a href="compare.html" class="compare-btn">Open Interactive Cost Calculator & Brand Comparison Matrix &rarr;</a>
+        </div>
+
     </div>
 </div>
 
@@ -91,6 +253,90 @@
         </a>
     </div>
 </footer>
+
+<script>
+// Official Innocent Hound feeding curves extracted from source code (Weight in kg : Daily Grams)
+const innocentRates = {
+    adult: { 1: 25, 5: 85, 10: 145, 20: 240, 25: 275, 30: 315, 40: 400, 45: 450 },
+    puppy_2_4: { 1: 45, 5: 155, 10: 255, 20: 400, 25: 500, 30: 520, 40: 690, 45: 775 },
+    puppy_4_6: { 1: 35, 5: 155, 10: 255, 20: 400, 25: 500, 30: 560, 40: 720, 45: 800 },
+    puppy_6_8: { 1: 35, 5: 125, 10: 200, 20: 345, 25: 420, 30: 485, 40: 695, 45: 800 },
+    puppy_8_12: { 1: 25, 5: 85, 10: 145, 20: 325, 25: 400, 30: 445, 40: 565, 45: 625 }
+};
+
+function handleStageChange() {
+    const stage = document.getElementById("innocent-stage").value;
+    const mealsSelect = document.getElementById("innocent-meals");
+
+    if (stage.startsWith("puppy")) {
+        // Auto-select 4 meals/day for younger puppies if currently set to 1 or 2
+        if ((stage === "puppy_2_4" || stage === "puppy_4_6") && (mealsSelect.value === "1" || mealsSelect.value === "2")) {
+            mealsSelect.value = "4";
+        }
+    } else {
+        // Reset to 2 meals for adults/seniors if they had 4 selected
+        if (mealsSelect.value === "4") {
+            mealsSelect.value = "2";
+        }
+    }
+    
+    calculateInnocentPortion();
+}
+
+function calculateInnocentPortion() {
+    const stage = document.getElementById("innocent-stage").value;
+    let weight = parseFloat(document.getElementById("innocent-weight").value) || 0;
+    const meals = parseInt(document.getElementById("innocent-meals").value) || 1;
+
+    // Strict cap at 45kg max
+    if (weight > 45) {
+        weight = 45;
+        document.getElementById("innocent-weight").value = 45;
+    }
+
+    if (weight <= 0) return;
+
+    let dailyGrams = 0;
+
+    if (stage === "senior") {
+        // Industry standard: 15% reduction from adult feeding rate
+        const adultGrams = interpolateGrams(innocentRates.adult, weight);
+        dailyGrams = adultGrams * 0.85;
+    } else if (stage === "adult") {
+        dailyGrams = interpolateGrams(innocentRates.adult, weight);
+    } else {
+        // Puppy stages
+        dailyGrams = interpolateGrams(innocentRates[stage], weight);
+    }
+
+    const mealGrams = dailyGrams / meals;
+
+    document.getElementById("innocent-daily-grams").textContent = `${Math.round(dailyGrams)}g`;
+    document.getElementById("innocent-meal-grams").textContent = `${Math.round(mealGrams)}g`;
+}
+
+// Smooth linear interpolation for exact weight points
+function interpolateGrams(rates, weight) {
+    const keys = Object.keys(rates).map(Number).sort((a,b) => a - b);
+    
+    if (weight <= keys[0]) return rates[keys[0]] * (weight / keys[0]);
+    if (weight >= keys[keys.length - 1]) return rates[keys[keys.length - 1]];
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        if (weight >= keys[i] && weight <= keys[i+1]) {
+            const minW = keys[i], maxW = keys[i+1];
+            const minG = rates[minW], maxG = rates[maxW];
+            return minG + ((weight - minW) / (maxW - minW)) * (maxG - minG);
+        }
+    }
+    return 0;
+}
+
+// Initialise calculation on load
+window.onload = function() {
+    handleStageChange();
+};
+</script>
 
 </body>
 </html>
