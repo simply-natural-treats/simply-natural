@@ -4,8 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wild Pet Food | Simply Natural Treats & Completes</title>
-    <!-- Link to our new central CSS file -->
+    <!-- Link to central CSS file -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .wild-calc-card {
+            background-color: #f8f9fa;
+            border-top: 4px solid var(--orange, #e07a5f);
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .wild-calc-title {
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            text-align: center;
+            color: var(--charcoal, #222);
+        }
+        .wild-calc-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .wild-calc-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .wild-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+        .wild-form-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .wild-form-group select, 
+        .wild-form-group input {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .wild-results-box {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+        .wild-stat-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--green, #2b6cb0);
+            display: block;
+        }
+        .wild-stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .wild-calc-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            margin-bottom: 0;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,7 +95,6 @@
         </a>
 
         <nav class="main-nav">
-            <!-- Hidden checkbox acts as the toggle logic for the menu -->
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             
             <label for="menu-toggle" class="menu-button">
@@ -66,6 +141,52 @@
         <p>We do not believe in a one-size-fits-all approach to your dog's health. Because we never sell online, we take the time to understand your dog's unique needs in person.</p>
         
         <p>Visit our Darlington store for a proper, face-to-face consultation, and let us show you why making the switch to a premium cold-pressed diet is one of the best decisions you can make for your dog's wellbeing.</p>
+
+        <!-- --- WILD DAILY FEEDING CALCULATOR SECTION --- -->
+        <div class="wild-calc-card">
+            <h3 class="wild-calc-title">Wild Pet Food Daily Feeding Calculator</h3>
+            
+            <div class="wild-calc-grid">
+                <div class="wild-form-group">
+                    <label for="wild-stage">Select Life Stage:</label>
+                    <select id="wild-stage" onchange="handleStageChange()">
+                        <option value="puppy_2_6">Puppy (2–6 months)</option>
+                        <option value="puppy_6_9">Puppy (6–9 months)</option>
+                        <option value="puppy_9_12">Puppy (9–12 months)</option>
+                        <option value="adult" selected>Adult</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                </div>
+
+                <div class="wild-form-group">
+                    <label for="wild-weight" id="wild-weight-label">Adult Dog Weight (kg):</label>
+                    <input type="number" id="wild-weight" value="10" min="1" max="45" step="0.5" oninput="calculateWildPortion()">
+                </div>
+
+                <div class="wild-form-group">
+                    <label for="wild-meals">Meals per Day:</label>
+                    <select id="wild-meals" onchange="calculateWildPortion()">
+                        <option value="1">1 Meal / Day</option>
+                        <option value="2" selected>2 Meals / Day</option>
+                        <option value="3">3 Meals / Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="wild-results-box">
+                <div>
+                    <span class="wild-stat-value" id="wild-daily-grams">0g</span>
+                    <span class="wild-stat-label">Daily Recommended Feed</span>
+                </div>
+                <div>
+                    <span class="wild-stat-value" id="wild-meal-grams">0g</span>
+                    <span class="wild-stat-label">Serving Per Meal</span>
+                </div>
+            </div>
+
+            <p class="wild-calc-note">Feeding guidelines are approximate. Factors such as breed, activity level, and temperament should be considered. Always ensure fresh drinking water is available.</p>
+        </div>
+
     </div>
 </div>
 
@@ -95,6 +216,83 @@
         </a>
     </div>
 </footer>
+
+<script>
+// Official Wild Pet Food feeding curves (Weight in kg : Daily Grams)
+const wildRates = {
+    adult: { 1: 25, 5: 85, 10: 143, 20: 240, 30: 326, 40: 404, 45: 442 },
+    puppy_2_6: { 1: 70, 5: 100, 10: 210, 25: 310, 45: 490 },
+    puppy_6_9: { 1: 75, 5: 110, 10: 220, 25: 320, 45: 540 },
+    puppy_9_12: { 1: 70, 5: 100, 10: 190, 25: 300, 45: 510 }
+};
+
+function handleStageChange() {
+    const stage = document.getElementById("wild-stage").value;
+    const label = document.getElementById("wild-weight-label");
+
+    if (stage.startsWith("puppy")) {
+        label.textContent = "Expected Adult Weight (kg):";
+    } else {
+        label.textContent = "Adult Dog Weight (kg):";
+    }
+    
+    calculateWildPortion();
+}
+
+function calculateWildPortion() {
+    const stage = document.getElementById("wild-stage").value;
+    let weight = parseFloat(document.getElementById("wild-weight").value) || 0;
+    const meals = parseInt(document.getElementById("wild-meals").value) || 1;
+
+    // Strict cap at 45kg max
+    if (weight > 45) {
+        weight = 45;
+        document.getElementById("wild-weight").value = 45;
+    }
+
+    if (weight <= 0) return;
+
+    let dailyGrams = 0;
+
+    if (stage === "senior") {
+        // Industry standard: 15% reduction from adult feeding rate
+        const adultGrams = interpolateGrams(wildRates.adult, weight);
+        dailyGrams = adultGrams * 0.85;
+    } else if (stage === "adult") {
+        dailyGrams = interpolateGrams(wildRates.adult, weight);
+    } else {
+        // Puppy stages (puppy_2_6, puppy_6_9, puppy_9_12)
+        dailyGrams = interpolateGrams(wildRates[stage], weight);
+    }
+
+    const mealGrams = dailyGrams / meals;
+
+    document.getElementById("wild-daily-grams").textContent = `${Math.round(dailyGrams)}g`;
+    document.getElementById("wild-meal-grams").textContent = `${Math.round(mealGrams)}g`;
+}
+
+// Smooth linear interpolation for exact weight points
+function interpolateGrams(rates, weight) {
+    const keys = Object.keys(rates).map(Number).sort((a,b) => a - b);
+    
+    if (weight <= keys[0]) return rates[keys[0]] * (weight / keys[0]);
+    if (weight >= keys[keys.length - 1]) return rates[keys[keys.length - 1]];
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        if (weight >= keys[i] && weight <= keys[i+1]) {
+            const minW = keys[i], maxW = keys[i+1];
+            const minG = rates[minW], maxG = rates[maxW];
+            return minG + ((weight - minW) / (maxW - minW)) * (maxG - minG);
+        }
+    }
+    return 0;
+}
+
+// Initialise calculation on load
+window.onload = function() {
+    handleStageChange();
+};
+</script>
 
 </body>
 </html>
