@@ -81,13 +81,41 @@
             text-align: center;
             font-style: italic;
         }
+        .compare-callout-box {
+            background-color: #f2f9f4;
+            border: 1px solid #cce5d6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .compare-callout-box p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #333;
+        }
+        .compare-btn {
+            display: inline-block;
+            background-color: var(--orange, #e07a5f);
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+        .compare-btn:hover {
+            background-color: #c96548;
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="header-container">
-        <!-- Invisible spacer to keep the logo perfectly centered -->
+        <!-- Invisible spacer to keep the logo perfectly centred -->
         <div class="header-spacer"></div>
         
         <a href="index.html">
@@ -107,6 +135,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#products">Our Products</a></li>
+                <li><a href="compare.html">Cost Calculator</a></li>
                 <li><a href="visit.html">Visit Us & Contact</a></li>
             </ul>
         </nav>
@@ -169,6 +198,7 @@
                         <option value="1">1 Meal / Day</option>
                         <option value="2" selected>2 Meals / Day</option>
                         <option value="3">3 Meals / Day</option>
+                        <option value="4">4 Meals / Day</option>
                     </select>
                 </div>
             </div>
@@ -185,6 +215,12 @@
             </div>
 
             <p class="wild-calc-note">Feeding guidelines are approximate. Factors such as breed, activity level, and temperament should be considered. Always ensure fresh drinking water is available.</p>
+        </div>
+
+        <!-- --- LINK TO COST CALCULATOR & MATRIX --- -->
+        <div class="compare-callout-box">
+            <p>Want to see how Wild Pet Food compares on daily cost and feeding amounts against other leading brands?</p>
+            <a href="compare.html" class="compare-btn">Open Interactive Cost Calculator & Brand Comparison Matrix &rarr;</a>
         </div>
 
     </div>
@@ -229,11 +265,19 @@ const wildRates = {
 function handleStageChange() {
     const stage = document.getElementById("wild-stage").value;
     const label = document.getElementById("wild-weight-label");
+    const mealsSelect = document.getElementById("wild-meals");
 
     if (stage.startsWith("puppy")) {
         label.textContent = "Expected Adult Weight (kg):";
+        // Auto-select 4 meals/day for younger puppies if currently set to 1 or 2
+        if (stage === "puppy_2_6" && (mealsSelect.value === "1" || mealsSelect.value === "2")) {
+            mealsSelect.value = "4";
+        }
     } else {
         label.textContent = "Adult Dog Weight (kg):";
+        if (mealsSelect.value === "4") {
+            mealsSelect.value = "2";
+        }
     }
     
     calculateWildPortion();
@@ -261,7 +305,7 @@ function calculateWildPortion() {
     } else if (stage === "adult") {
         dailyGrams = interpolateGrams(wildRates.adult, weight);
     } else {
-        // Puppy stages (puppy_2_6, puppy_6_9, puppy_9_12)
+        // Puppy stages
         dailyGrams = interpolateGrams(wildRates[stage], weight);
     }
 
