@@ -128,7 +128,7 @@
             <img src="SimplyNaturalLogo.png" alt="Simply Natural Treats & Completes Logo" class="header-logo">
         </a>
 
-<nav class="main-nav">
+        <nav class="main-nav">
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             
             <label for="menu-toggle" class="menu-button">
@@ -184,7 +184,8 @@
                 <div class="jr-form-group">
                     <label for="jr-stage">Select Life Stage:</label>
                     <select id="jr-stage" onchange="handleStageChange()">
-                        <option value="puppy_2_6">Puppy (2 to 6 months)</option>
+                        <option value="under_20_weeks">Puppy (Under 20 weeks) - See Note</option>
+                        <option value="puppy_20w_6m">Puppy (20 weeks to 6 months)</option>
                         <option value="puppy_6_9">Puppy (6 to 9 months)</option>
                         <option value="puppy_9_12">Puppy (9 to 12 months)</option>
                         <option value="adult" selected>Adult</option>
@@ -218,6 +219,10 @@
                     <span class="jr-stat-label">Serving Per Meal</span>
                 </div>
             </div>
+            
+            <p id="puppy-warning" style="display: none; color: #d9534f; font-weight: bold; margin-top: 1rem; text-align: center;">
+                *While technically approved for all life stages, this butcher-prepared food is incredibly rich. We strongly advise waiting until your puppy is at least 20 weeks old to introduce it, to avoid causing severe digestive upset.*
+            </p>
 
             <p class="jr-calc-note">Feeding guidelines are approximate. Puppies require varying amounts depending on age and breed. Always ensure fresh drinking water is available.</p>
         </div>
@@ -274,9 +279,9 @@ function handleStageChange() {
     const stage = document.getElementById("jr-stage").value;
     const mealsSelect = document.getElementById("jr-meals");
 
-    if (stage.startsWith("puppy")) {
+    if (stage.startsWith("puppy") || stage === "under_20_weeks") {
         // Auto-select 4 meals/day for younger puppies if currently set to 1 or 2
-        if (stage === "puppy_2_6" && (mealsSelect.value === "1" || mealsSelect.value === "2")) {
+        if ((stage === "puppy_20w_6m" || stage === "under_20_weeks") && (mealsSelect.value === "1" || mealsSelect.value === "2")) {
             mealsSelect.value = "4";
         }
     } else {
@@ -293,6 +298,17 @@ function calculateJRPortion() {
     const stage = document.getElementById("jr-stage").value;
     let weight = parseFloat(document.getElementById("jr-weight").value) || 0;
     const meals = parseInt(document.getElementById("jr-meals").value) || 1;
+    const warningText = document.getElementById("puppy-warning");
+
+    // Handle the under 20 weeks warning and output 0g
+    if (stage === "under_20_weeks") {
+        warningText.style.display = "block";
+        document.getElementById("jr-daily-grams").textContent = "0g";
+        document.getElementById("jr-meal-grams").textContent = "0g";
+        return; // Stop the rest of the calculation
+    } else {
+        warningText.style.display = "none";
+    }
 
     // Strict cap at 45kg max
     if (weight > 45) {
@@ -311,7 +327,7 @@ function calculateJRPortion() {
         dailyGrams = adultGrams;
     } else if (stage === "senior") {
         dailyGrams = adultGrams * 0.85; // 15% reduction
-    } else if (stage === "puppy_2_6") {
+    } else if (stage === "puppy_20w_6m") {
         dailyGrams = adultGrams * 2.0;  // 2x adult maintenance
     } else if (stage === "puppy_6_9") {
         dailyGrams = adultGrams * 1.5;  // 1.5x adult maintenance
